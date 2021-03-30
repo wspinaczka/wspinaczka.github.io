@@ -133,66 +133,67 @@ input.error, input.error:focus {
     outline: none;
 }
 
-#add {
+.row.wide button {
     width: 23rem;
-    height: 6rem;
-    font-size: 4rem;
-    border-width: 7px;
 }
-
+.row.narrow button {
+    width: 10.5rem;
+}
+.row button {
+    height: 4rem;
+}
+.row.high button {
+    height: 6rem;
+}
+#add {
+    font-size: 4rem;
+}
 #minus,
 #plus {
-    width: 10.5rem;
-    height: 4rem;
     font-size: 3rem;
 }
 #top {
-    width: 23rem;
-    height: 4rem;
     font-size: 1.5rem;
-    background: rgb(0, 77, 192);
-    box-shadow: 0 0.4rem 0 rgb(0, 37, 92);
 }
 #reset,
 #finish {
-    width: 10.5rem;
-    height: 4rem;
     font-size: 1.2rem;
 }
-#minus, #reset {
-    background: rgb(192, 0, 0);
-    box-shadow: 0 0.4rem 0 rgb(69, 0, 0);
-}
-#add, #plus {
+.row button.lime {
     background: rgb(54, 192, 0);
     box-shadow: 0 0.4rem 0 rgb(8, 69, 0);
 }
-#finish {
-    background: rgb(26, 131, 26);
-    box-shadow: 0 0.4rem 0 rgb(23, 59, 12);
-}
-
-#reset:active,
-#minus:active {
-    position: relative;
-    top: 0.2rem;
-    box-shadow: 0 0.2rem 0 rgb(69, 0, 0);
-}
-#add:active,
-#plus:active {
+.row button.lime:active {
     position: relative;
     top: 0.2rem;
     box-shadow: 0 0.2rem 0 rgb(8, 69, 0);
 }
-#finish:active {
+.row button.red {
+    background: rgb(192, 0, 0);
+    box-shadow: 0 0.4rem 0 rgb(69, 0, 0);
+}
+.row button.red:active {
     position: relative;
     top: 0.2rem;
-    box-shadow: 0 0.2rem 0 rgb(23, 59, 12);
+    box-shadow: 0 0.2rem 0 rgb(69, 0, 0);
 }
-#top:active {
+.row button.blue {
+    background: rgb(0, 77, 192);
+    box-shadow: 0 0.4rem 0 rgb(0, 37, 92);
+}
+.row button.blue:active {
     position: relative;
     top: 0.2rem;
     box-shadow: 0 0.2rem 0 rgb(0, 37, 92);
+}
+.row button.green {
+    background: rgb(26, 131, 26);
+    box-shadow: 0 0.4rem 0 rgb(23, 59, 12);
+}
+.row button.green:active {
+    position: relative;
+    top: 0.2rem;
+    box-shadow: 0 0.2rem 0 rgb(23, 59, 12);
 }
 
 /*  
