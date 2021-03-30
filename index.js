@@ -250,11 +250,11 @@ function updateLocalStorage() {
         console.error(error);
     }
 }
-function loadFromLocalStorage() {
+function loadFromLocalStorage(isFromBackup = false) {
     try {
-        dataEntries = JSON.parse(localStorage.getItem('wspinaczka.github.io-dataEntries')) ?? {};
-        routes = JSON.parse(localStorage.getItem('wspinaczka.github.io-routes')) ?? [];
-        routeSelector.value = localStorage.getItem('wspinaczka.github.io-selectorValue');
+        dataEntries = JSON.parse(localStorage.getItem(`wspinaczka.github.io-dataEntries${isFromBackup ? ('-BACKUP') : ''}`)) ?? {};
+        routes = JSON.parse(localStorage.getItem(`wspinaczka.github.io-routes${isFromBackup ? ('-BACKUP') : ''}`)) ?? [];
+        routeSelector.value = localStorage.getItem(`wspinaczka.github.io-selectorValue${isFromBackup ? ('-BACKUP') : ''}`);
     } catch (error) {
         console.error(error);
     }
@@ -265,10 +265,20 @@ function loadFromLocalStorage() {
         type: "info",
     }).show(5000);
 }
+function loadBackupData() {
+    loadFromLocalStorage(true);
+    updateLocalStorage();
+    new Toast({
+        message: "Odzyskano dane.", 
+        type: "success",
+    }).show(5000);
 }
 loadFromLocalStorage();
 function resetAllData() {
     if (confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane zawarte w tabeli? Tej akcji nie da się cofnąć.')) {
+        localStorage.setItem('wspinaczka.github.io-dataEntries-BACKUP', JSON.stringify(dataEntries));
+        localStorage.setItem('wspinaczka.github.io-routes-BACKUP', JSON.stringify(routes));
+        localStorage.setItem('wspinaczka.github.io-selectorValue-BACKUP', routeSelector.value);
         dataEntries = {};
         routes = [];
         updateRouteSelector();
