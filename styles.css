@@ -1,0 +1,39 @@
+/* create variables */
+:root {
+    --orange: #ff4e00;
+    --bg: white;
+    --bg2: #333;
+    --blue: #0c64c5;
+    --acc: #bbb;
+    --bg3: #eee;
+}
+
+/* normalize margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+/*  
+========================
+        Main CSS
+========================
+*/
+
+html, body {
+    scroll-behavior: smooth;
+    background: var(--bg);
+    min-height: 160vh;
+    max-width: 100%;
+    width: 100%;
+}
+.hidden {
+    opacity: 0%;
+    visibility: hidden;
+}
