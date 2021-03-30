@@ -37,3 +37,160 @@ html, body {
     opacity: 0%;
     visibility: hidden;
 }
+/*  
+=======================
+        Content
+=======================
+*/
+main, .counter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.counter {
+    width: max-content;
+    min-height: 100vh;
+    height: max-content;
+    padding-bottom: 4rem;
+}
+hr {
+    width: 90%;
+    margin: 1rem 0;
+    border-bottom: 1px solid var(--acc);
+}
+/*  
+=======================
+        Inputs
+=======================
+*/
+input[type="text"] {
+    margin-top: 2rem;
+    width: 20rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    background: var(--bg3);
+    border: 2px solid var(--bg2);
+    border-radius: 4px;
+    color: black;
+    padding: 0.2rem 0.4rem;
+    transition: border 0.4s ease, background-color 0.4s ease;
+}
+input.error, input.error:focus {
+    border: 2px solid rgb(225, 0, 0);
+    background: rgb(255, 0, 0, 0.1);
+}
+
+/*  
+=======================
+        Counter
+=======================
+*/
+#counter {
+    margin-top: 2rem;
+    width: 22rem;
+    height: 15rem;
+    background: var(--bg3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bg2);
+    font-size: 8rem;
+    text-shadow: 0 0 20px var(--bg2);
+    border-radius: 1rem;
+    border: 0.5rem solid var(--acc);
+}
+
+/*  
+=======================
+        Buttons
+=======================
+*/
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    margin-top: 2rem;
+}
+.buttons button {
+    border-radius: 1rem;
+    /* border: 4px solid var(--bg2); */
+    border: none;
+    background: transparent;
+    color: var(--bg2);
+    cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
+    margin: 0.5rem;
+    color: white;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.buttons button:focus {
+    outline: none;
+}
+
+#add {
+    width: 23rem;
+    height: 6rem;
+    font-size: 4rem;
+    border-width: 7px;
+}
+
+#minus,
+#plus {
+    width: 10.5rem;
+    height: 4rem;
+    font-size: 3rem;
+}
+#top {
+    width: 23rem;
+    height: 4rem;
+    font-size: 1.5rem;
+    background: rgb(0, 77, 192);
+    box-shadow: 0 0.4rem 0 rgb(0, 37, 92);
+}
+#reset,
+#finish {
+    width: 10.5rem;
+    height: 4rem;
+    font-size: 1.2rem;
+}
+#minus, #reset {
+    background: rgb(192, 0, 0);
+    box-shadow: 0 0.4rem 0 rgb(69, 0, 0);
+}
+#add, #plus {
+    background: rgb(54, 192, 0);
+    box-shadow: 0 0.4rem 0 rgb(8, 69, 0);
+}
+#finish {
+    background: rgb(26, 131, 26);
+    box-shadow: 0 0.4rem 0 rgb(23, 59, 12);
+}
+
+#reset:active,
+#minus:active {
+    position: relative;
+    top: 0.2rem;
+    box-shadow: 0 0.2rem 0 rgb(69, 0, 0);
+}
+#add:active,
+#plus:active {
+    position: relative;
+    top: 0.2rem;
+    box-shadow: 0 0.2rem 0 rgb(8, 69, 0);
+}
+#finish:active {
+    position: relative;
+    top: 0.2rem;
+    box-shadow: 0 0.2rem 0 rgb(23, 59, 12);
+}
+#top:active {
+    position: relative;
+    top: 0.2rem;
+    box-shadow: 0 0.2rem 0 rgb(0, 37, 92);
+}
