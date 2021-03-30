@@ -139,11 +139,11 @@ input.error, input.error:focus {
 .row.narrow button {
     width: 10.5rem;
 }
-.row button {
-    height: 4rem;
-}
 .row.high button {
     height: 6rem;
+}
+.row button {
+    height: 4rem;
 }
 #add {
     font-size: 4rem;
