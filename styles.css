@@ -262,3 +262,11 @@ input.error, input.error:focus {
 .table .top {
     text-decoration: underline;
 }
+.table #reset-data {
+    margin-top: 4rem;
+    color: red;
+    padding: 0.3rem 0.5rem;
+    border: 2px solid red;
+    border-radius: 4px;
+    cursor: pointer;
+}
