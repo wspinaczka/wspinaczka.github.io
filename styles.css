@@ -29,7 +29,7 @@
 html, body {
     scroll-behavior: smooth;
     background: var(--bg);
-    min-height: 160vh;
+    height: max-content;
     max-width: 100%;
     width: 100%;
 }
@@ -58,6 +58,69 @@ hr {
     width: 90%;
     margin: 1rem 0;
     border-bottom: 1px solid var(--acc);
+}
+======================
+        Toasts
+======================
+*/
+.Toaster.toast {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 400px;
+    min-height: 1.5rem;
+    padding: 6px;
+    color: black;
+    font-family: sans-serif;
+    text-align: center;
+    border-radius: 4px;
+    border-left: 6px solid currentColor;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+}
+.Toaster.toast--visible {
+    top: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+.Toaster.toast--success {
+    background: #DEF2D5;
+    border-color: #596D50;
+    color: #596D50;
+}
+.Toaster.toast--info {
+    background: #CCE8F4;
+    border-color: #4D7FA3;
+    color: #4D7FA3;
+}
+.Toaster.toast--disallow,
+.Toaster.toast--error {
+    background: #EBC8C2;
+    border-color: #AA3132;
+    color: #AA3132;
+}
+.Toaster.toast--warn {
+    background: #F8F3D6;
+    border-color: #927947;
+    color: #927947;
+}
+.Toaster .toast-icon {
+    position: absolute;
+    left: 0;
+    margin-left: 1rem;
+    color: currentColor;
+}
+.Toaster .toast-close {
+    position: absolute;
+    right: 0;
+    margin-right: 1rem;
+    color: currentColor;
+    opacity: 50%;
+    cursor: pointer;
 }
 /*  
 =======================
@@ -270,6 +333,72 @@ input.error, input.error:focus {
     border: 2px solid red;
     border-radius: 4px;
     cursor: pointer;
+}
+/*  
+======================
+        Footer
+======================
+*/
+footer {
+    background: rgba(0,0,0,0.1);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 2rem;
+}
+/* social media buttons main styling */
+.social-media-wrapper .button {
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    margin: 0 5px;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+.social-media-wrapper .button:hover {
+    width: 200px;
+}
+.social-media-wrapper .button .icon {
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 50px;
+    line-height: 60px;
+    transition: all 0.2s ease;
+}
+.social-media-wrapper .button .icon i {
+    font-size: 25px;
+    line-height: 60px;
+    transition: all 0.2s ease;
+}
+.social-media-wrapper .button span {
+    font-family: 20px;
+    font-weight: 500;
+    line-height: 60px;
+    margin-left: 10px;
+}
+/* social media buttons individual styling */
+.social-media-wrapper .button.github:hover .icon {
+    background: #24292e;
+    color: white;
+}
+.social-media-wrapper .button.github:hover span {
+    color: #24292e;
+}
+.social-media-wrapper .button.discord:hover .icon {
+    background: #7289da;
+    color: white;
+}
+.social-media-wrapper .button.discord:hover span {
+    color: #7289da;
 }
 
 @media screen and (max-width: 440px) {
