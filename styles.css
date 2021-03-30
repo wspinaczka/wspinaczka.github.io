@@ -194,3 +194,71 @@ input.error, input.error:focus {
     top: 0.2rem;
     box-shadow: 0 0.2rem 0 rgb(0, 37, 92);
 }
+
+/*  
+==========================
+        Data Table
+==========================
+*/
+.table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: max-content;
+    width: max-content;
+    padding: 2rem 1rem 4rem;
+}
+.table h1 {
+    margin-bottom: 1rem;
+}
+.table select {
+    width: max-content;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.2rem 0.4rem;
+}
+.table table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+.table tr:nth-child(even) {
+    background: #0001;
+}
+.table td, .table th {
+    border: 1px solid var(--acc);
+}
+.table th {
+    background: var(--orange);
+    color: white;
+    font-size: large;
+    padding: 0.5rem 2rem 0.5rem 0.3rem;
+}
+.table td {
+    padding: 0.4rem 2rem 0.4rem 0.3rem;
+}
+.table tr:nth-of-type(2):not([class="remove-entry"]):not([class="blankCell"]),
+.table tr:nth-of-type(3):not([class="remove-entry"]),
+.table tr:nth-of-type(4):not([class="remove-entry"]) {
+    font-weight: 700;
+}
+.table tr :nth-child(1):not([class="blankCell"]),
+.table tr :nth-child(5):not([class="blankCell"]) {
+    padding: 0.4rem 0.5rem;
+    min-width: 1rem;
+    text-align: center;
+}
+.table .remove-entry {
+    color: red;
+    font-weight: 800;
+    font-size: 1.2rem;
+    border: none;
+    background-color: transparent;
+    justify-self: center;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+.table .top {
+    text-decoration: underline;
+}
