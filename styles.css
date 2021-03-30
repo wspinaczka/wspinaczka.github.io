@@ -271,3 +271,66 @@ input.error, input.error:focus {
     border-radius: 4px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 440px) {
+    /*  
+    =======================
+            Counter
+    =======================
+    */
+    input[type="text"] {
+        margin-top: 1.2rem;
+        width: 18rem;
+        height: 1.8rem;
+        font-size: 1.1rem;
+        padding: 0.15rem 0.33rem;
+    }
+    #counter {
+        width: 19.5rem;
+        height: 11rem;
+        font-size: 6rem;
+    }
+    .row.wide button {
+        width: 20rem;
+    }
+    .row.narrow button {
+        width: 9rem;
+    }
+    .row.high button {
+        height: 5rem;
+    }
+    .row button {
+        height: 3.5rem;
+    }
+    #add {
+        font-size: 3rem;
+    }
+    #minus,
+    #plus {
+        font-size: 2rem;
+    }
+    #top {
+        font-size: 1.1rem;
+    }
+    #reset,
+    #finish {
+        font-size: 0.9rem;
+    }
+
+    /*  
+    ==========================
+            Data Table
+    ==========================
+    */
+    .table table {
+        overflow-x: scroll;
+    }
+    .table td, .table th {
+        font-size: smaller
+    }
+    .table #reset-data {
+        margin-top: 2rem;
+        padding: 0.1rem 0.2rem;
+        font-size: smaller;
+    }
+}
