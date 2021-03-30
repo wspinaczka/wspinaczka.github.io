@@ -49,8 +49,13 @@ routeData.addEventListener('input', () => {
 
 function resetCounter(notConfirm) {
     if (curNum == 0 && !nameData.value.trim() && !routeData.value.trim()) return;
-    if (notConfirm != true) 
+    if (notConfirm != true) {
         if (!confirm('Czy na pewno chcesz zresetować pomiar?')) return;
+    }
+    new Toast({
+        message: "Zresetowano.", 
+        type: "success",
+    }).show(5000);
     curNum = 0;
     resetInputs();
     updateCounter();
@@ -97,12 +102,22 @@ function setToTop() {
 function finishCounter() {
     if (!nameData.value) nameData.classList.add('error');
     if (!routeData.value) routeData.classList.add('error');
-    if (!nameData.value || !routeData.value) return;
+    if (!nameData.value || !routeData.value) {
+        new Toast({
+            message: "Nie wszystkie pola są wypełnione!", 
+            type: "error",
+        }).show(5000);
+        return;
+    }
     nameData.classList.remove('error');
     routeData.classList.remove('error');
     if (confirm('Czy na pewno chcesz zakończyć pomiar?')) {
         addNewDataEntry();
         resetCounter(true);
+        new Toast({
+            message: "Dane zostały zapisane w tabeli wyników.", 
+            type: "success",
+        }).show(5000);
     }
 }
 function updateCounter() {
@@ -156,6 +171,10 @@ function removeDataEntry(index) {
     }
     updateRouteSelector();
     if (!isEmpty) updateResultsTable();
+    new Toast({
+        message: "Usunięto pozycję.", 
+        type: "success",
+    }).show(5000);
 }
 function updateRouteSelector() {
     routeSelector.innerHTML = '';
@@ -241,6 +260,11 @@ function loadFromLocalStorage() {
     }
     updateRouteSelector();
     updateResultsTable();
+    new Toast({
+        message: "Załadowano dane zapisane w pamięci.", 
+        type: "info",
+    }).show(5000);
+}
 }
 loadFromLocalStorage();
 function resetAllData() {
@@ -249,6 +273,10 @@ function resetAllData() {
         routes = [];
         updateRouteSelector();
         updateResultsTable();
+        new Toast({
+            message: "Dane zostały usunięte.", 
+            type: "success",
+        }).show(5000);
     }
 }
 function copyToClipboard(str) {
@@ -261,7 +289,7 @@ function copyToClipboard(str) {
     el.setSelectionRange(0, 9999999);
     document.execCommand('copy');
     document.body.removeChild(el);
-    new Toast({message: 'Skopiowano', type: 'success', time: 3000}).show();
+    new Toast({message: 'Skopiowano', type: 'success'}).show(2000);
 }
 
 const iconMap = {
@@ -308,12 +336,12 @@ class Toast {
         }
         document.body.appendChild(this.el);
     }
-    show() {
+    show(time) {
         clearTimeout(this.hideTimeout);
         this.el.classList.add("toast--visible");
         this.hideTimeout = setTimeout(() => {
             this.el.classList.remove("toast--visible");
-        }, this.time);
+        }, time ?? this.time);
     }
     hide() {
         clearTimeout(this.hideTimeout);
