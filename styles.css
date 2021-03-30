@@ -59,6 +59,7 @@ hr {
     margin: 1rem 0;
     border-bottom: 1px solid var(--acc);
 }
+/*
 ======================
         Toasts
 ======================
@@ -293,7 +294,7 @@ input.error, input.error:focus {
     border: 1px solid var(--acc);
 }
 .table th {
-    background: var(--orange);
+    background: rgb(0, 77, 192);
     color: white;
     font-size: large;
     padding: 0.5rem 2rem 0.5rem 0.3rem;
