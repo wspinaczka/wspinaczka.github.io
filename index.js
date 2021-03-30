@@ -11,6 +11,7 @@ const counter = document.querySelector('#counter');
 
 const routeSelector = document.querySelector('#routes-selector');
 const resultsTable = document.querySelector('#results');
+const resetAllButton = document.querySelector('#reset-data');
 let curNum = 0;
 let prevNum = null;
 let routes = [];
@@ -23,6 +24,9 @@ topBtn.addEventListener('click', setToTop);
 finishBtn.addEventListener('click', finishCounter);
 
 routeSelector.addEventListener('change', updateResultsTable);
+
+resetAllButton.addEventListener('click', resetAllData);
+
 nameData.addEventListener('input', () => {
     if (nameData.classList.contains('error') && nameData.value.trim()) {
         nameData.classList.remove('error');
@@ -207,4 +211,33 @@ function updateResultsTable() {
         resultsTable.appendChild(row);
     })
     updateLocalStorage();
+}
+function updateLocalStorage() {
+    try {
+        localStorage.setItem('wspinaczka.github.io-dataEntries', JSON.stringify(dataEntries));
+        localStorage.setItem('wspinaczka.github.io-routes', JSON.stringify(routes));
+        localStorage.setItem('wspinaczka.github.io-selectorValue', routeSelector.value);
+    } catch (error) {
+        console.error(error);
+    }
+}
+function loadFromLocalStorage() {
+    try {
+        dataEntries = JSON.parse(localStorage.getItem('wspinaczka.github.io-dataEntries')) ?? {};
+        routes = JSON.parse(localStorage.getItem('wspinaczka.github.io-routes')) ?? [];
+        routeSelector.value = localStorage.getItem('wspinaczka.github.io-selectorValue');
+    } catch (error) {
+        console.error(error);
+    }
+    updateRouteSelector();
+    updateResultsTable();
+}
+loadFromLocalStorage();
+function resetAllData() {
+    if (confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane zawarte w tabeli? Tej akcji nie da się cofnąć.')) {
+        dataEntries = {};
+        routes = [];
+        updateRouteSelector();
+        updateResultsTable();
+    }
 }
