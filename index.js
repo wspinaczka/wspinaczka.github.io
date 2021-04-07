@@ -99,11 +99,13 @@ nameData.addEventListener('input', () => {
     if (nameData.classList.contains('error') && nameData.value.trim()) {
         nameData.classList.remove('error');
     }
+    updateLocalStorageInputs();
 })
 routeData.addEventListener('input', () => {
     if (routeData.classList.contains('error') && routeData.value.trim()) {
         routeData.classList.remove('error');
     }
+    updateLocalStorageInputs();
 })
 
 function resetCounter(notConfirm) {
@@ -189,6 +191,7 @@ function finishCounter() {
     }
 }
 function updateCounter() {
+    updateLocalStorageInputs();
     counter.innerHTML = toDisplayScore(curNum);
 }
 function checkRouteGroup(route) {
@@ -280,7 +283,7 @@ function updateResultsTable() {
         let endRow = document.createElement('tr')
         endRow.innerHTML = `<tr class="blankCell"><td colspan="5">Brak danych!</td></tr>`
         resultsTable.appendChild(endRow)
-        updateLocalStorage();
+        updateLocalStorageEntries();
         return;
     }
 
@@ -307,7 +310,27 @@ function updateResultsTable() {
         row.appendChild(td5);
         resultsTable.appendChild(row);
     })
-    updateLocalStorage();
+    updateLocalStorageEntries();
+}
+function updateLocalStorageInputs() {
+    try {
+        localStorage.setItem('nameDataValue', nameData.value);
+        localStorage.setItem('routeDataValue', routeData.value);
+        localStorage.setItem('counterValue', curNum);
+        localStorage.setItem('prevValue', prevNum);
+    } catch (e) {
+        console.error(error);
+    }
+}
+function updateLocalStorageEntries() {
+    try {
+        localStorage.setItem('dataEntries', JSON.stringify(dataEntries));
+        localStorage.setItem('routes', JSON.stringify(routes));
+        localStorage.setItem('selectorValue', routeSelector.value);
+    } catch (error) {
+        console.error(error);
+    }
+    backupData();
 }
 function updateLocalStorage() {
     try {
@@ -320,22 +343,25 @@ function updateLocalStorage() {
 }
 function loadFromLocalStorage(isFromBackup = false) {
     try {
-        dataEntries = JSON.parse(localStorage.getItem(`wspinaczka.github.io-dataEntries${isFromBackup ? ('-BACKUP') : ''}`)) ?? {};
-        routes = JSON.parse(localStorage.getItem(`wspinaczka.github.io-routes${isFromBackup ? ('-BACKUP') : ''}`)) ?? [];
-        routeSelector.value = localStorage.getItem(`wspinaczka.github.io-selectorValue${isFromBackup ? ('-BACKUP') : ''}`);
+        dataEntries = JSON.parse(localStorage.getItem(`dataEntries${isFromBackup ? ('-BACKUP') : ''}`)) ?? {};
+        routes = JSON.parse(localStorage.getItem(`routes${isFromBackup ? ('-BACKUP') : ''}`)) ?? [];
+        routeSelector.value = localStorage.getItem(`selectorValue${isFromBackup ? ('-BACKUP') : ''}`);
+        nameData.value = localStorage.getItem('nameDataValue');
+        routeData.value = localStorage.getItem('routeDataValue');
+        curNum = Number(localStorage.getItem('counterValue'));
+        if (isNaN(curNum)) curNum = 0;
+        prevNum = Number(localStorage.getItem('prevValue'));
+        if (isNaN(prevNum)) prevNum = null;
     } catch (error) {
         console.error(error);
     }
+    updateCounter();
     updateRouteSelector();
     updateResultsTable();
-    new Toast({
-        message: "Załadowano dane zapisane w pamięci.", 
-        type: "info",
-    }).show(5000);
 }
 function loadBackupData() {
     loadFromLocalStorage(true);
-    updateLocalStorage();
+    updateLocalStorageEntries();
     new Toast({
         message: "Odzyskano dane.", 
         type: "success",
