@@ -370,17 +370,20 @@ function loadBackupData() {
 loadFromLocalStorage();
 function resetAllData() {
     if (confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane zawarte w tabeli? Tej akcji nie da się cofnąć.')) {
-        localStorage.setItem('wspinaczka.github.io-dataEntries-BACKUP', JSON.stringify(dataEntries));
-        localStorage.setItem('wspinaczka.github.io-routes-BACKUP', JSON.stringify(routes));
-        localStorage.setItem('wspinaczka.github.io-selectorValue-BACKUP', routeSelector.value);
+        backupData();
         dataEntries = {};
         routes = [];
         updateRouteSelector();
         updateResultsTable();
-        new Toast({
-            message: "Dane zostały usunięte.", 
-            type: "success",
-        }).show(5000);
+    }
+}
+function backupData() {
+    try {
+        localStorage.setItem('dataEntries-BACKUP', JSON.stringify(dataEntries));
+        localStorage.setItem('routes-BACKUP', JSON.stringify(routes));
+        localStorage.setItem('selectorValue-BACKUP', routeSelector.value);
+    } catch (error) {
+        console.error(error);
     }
 }
 function copyToClipboard(str) {
