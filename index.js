@@ -254,12 +254,21 @@ function addNewDataEntry() {
         name: nameData.value,
         route,
         score: curNum,
-        displayScore: toDisplayScore(curNum)
+        displayScore: toDisplayScore(curNum),
+        wasHighlighted: false,
     }
     dataEntries[route].push(newDataEntry);
     updateRouteSelector();
     routeSelector.value = route;
     updateResultsTable();
+    document.getElementById("row-to-highlight").scrollIntoView();
+}
+function checkIfNameExists() {
+    let names = [];
+    dataEntries[routeData.value.toUpperCase()].forEach(el => {
+        names.push(el.name);
+    })
+    return names.includes(nameData.value);
 }
 function removeDataEntry(index) {
     let isEmpty = false;
@@ -326,6 +335,17 @@ function updateResultsTable() {
     })
     dataEntries[routeSelector.value].forEach((entry, index) => {
         let row = document.createElement('tr');
+        if (!entry.wasHighlighted) {
+            row.id = 'row-to-highlight';
+            entry.wasHighlighted = true;
+            setTimeout(() => {
+                let rowToHighlight = document.querySelector('#row-to-highlight')
+                rowToHighlight.classList.add('highlighted-row');
+                setTimeout(() => {
+                    rowToHighlight.classList.remove('highlighted-row');
+                }, 400);
+            }, 200);
+        }
         let td1 = document.createElement('td');
         let td2 = document.createElement('td');
         let td3 = document.createElement('td');
