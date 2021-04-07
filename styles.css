@@ -622,6 +622,11 @@ footer {
 .social-media-wrapper .button.github:active span {
     color: #24292e;
 }
+body.dark-theme .social-media-wrapper .button.github:hover span,
+body.dark-theme .social-media-wrapper .button.github:focus span,
+body.dark-theme .social-media-wrapper .button.github:active span {
+    color: white;
+}
 .social-media-wrapper .button.discord:hover .icon,
 .social-media-wrapper .button.discord:focus .icon,
 .social-media-wrapper .button.discord:active .icon {
