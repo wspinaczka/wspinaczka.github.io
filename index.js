@@ -72,6 +72,8 @@ const resetAllButton = document.querySelector('#reset-data');
 
 const copyButtons = document.querySelectorAll('.copyToClipboard');
 
+const advancedOptionsBtn = document.querySelector('#advanced-options-btn');
+const advancedOptionsList = document.querySelector('#advanced-options-list');
 let curNum = 0;
 let prevNum = null;
 let routes = [];
@@ -117,6 +119,15 @@ function resetCounter(notConfirm) {
     resetInputs();
     updateCounter();
 }
+advancedOptionsBtn.addEventListener('click', () => {
+    showHideMenu(advancedOptionsList);
+});
+
+userSettingsElements.btn.addEventListener('click', () => {
+    showHideMenu(userSettingsElements.list);
+});
+
+
 function substractCounter() {
     if (curNum <= 0) return;
     if (curNum % 1 == 0 || curNum % 1 == 0.75) {
@@ -358,5 +369,14 @@ function copyToClipboard(str) {
     document.body.removeChild(el);
     new Toast({message: 'Skopiowano', type: 'success'}).show(2000);
 }
+function showHideMenu(el) {
+    el.classList.remove('disallow-focusing');
+    setTimeout(() => {
+        el.classList.toggle('hidden');
+        if (el.classList.contains('hidden')) {
+            setTimeout(() => {
+                el.classList.add('disallow-focusing');
+            }, 200);
         }
+    }, 50);
 }
