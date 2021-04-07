@@ -164,7 +164,7 @@ function removeDataEntry(index) {
             routes.splice(routes.indexOf(routeSelector.value), 1);
             delete dataEntries[routeSelector.value]
             if (Object.keys(dataEntries).length == 0) {
-                resultsTable.innerHTML = `<tr><th>#</th><th>Zawodnik</th><th>Wynik</th><th>Trasa</th><th></th></tr><tr class="blankCell"><td colspan="5">Brak danych!</td></tr>`
+                resultsTable.innerHTML = `<tr><th>#</th><th>Zawodnik</th><th>Wynik</th><th>Trasa</th><th></th></tr><tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`
                 isEmpty = true;
             }
         }
@@ -231,7 +231,7 @@ function updateResultsTable() {
         td3.innerHTML = toDisplayScore(entry.score);
         if (td3.innerHTML == "top") td3.classList.add('top');
         td4.innerHTML = entry.route;
-        td5.innerHTML = `<button class="remove-entry" onclick="removeDataEntry(${index})">×</button>`;
+        td5.innerHTML = `<button class="remove-entry" onclick="removeDataEntry(${index})"><i class="fas fa-trash"></i></button>`;
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);

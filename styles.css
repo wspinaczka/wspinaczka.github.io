@@ -307,11 +307,28 @@ input.error, input.error:focus {
 .table tr:nth-of-type(4):not([class="remove-entry"]) {
     font-weight: 700;
 }
-.table tr :nth-child(1):not([class="blankCell"]),
+.table tr :nth-child(1):not([class="blankCell"]):not(button),
 .table tr :nth-child(5):not([class="blankCell"]) {
     padding: 0.4rem 0.5rem;
     min-width: 1rem;
     text-align: center;
+}
+body.hasHover .table table {
+    margin-left: 2.8rem;
+}
+.table th:nth-of-type(5),
+.table td:nth-of-type(5) {
+    background: var(--bg);
+    padding-left: 0;
+    border: none;
+}
+body.hasHover .table th:nth-of-type(5), 
+body.hasHover .table td:nth-of-type(5) {
+    visibility: hidden;
+}
+body.hasHover .table tr:hover th:nth-of-type(5),
+body.hasHover .table tr:hover td:nth-of-type(5) {
+    visibility: visible;
 }
 .table .remove-entry {
     color: red;
@@ -402,6 +419,11 @@ footer {
     color: #7289da;
 }
 
+/*  
+==========================
+        Responsive
+==========================
+*/
 @media screen and (max-width: 440px) {
     /*  
     =======================
@@ -457,6 +479,9 @@ footer {
     }
     .table td, .table th {
         font-size: smaller
+    }
+    .table tr :nth-child(5):not([class="blankCell"]) {
+        padding: 0;
     }
     .table #reset-data {
         margin-top: 2rem;
