@@ -141,6 +141,10 @@ hr {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
+.settings-list h2 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
 /* ====== plus amount ====== */
 .settings-list .plus-amount {
     display: flex;
