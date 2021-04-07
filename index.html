@@ -17,6 +17,35 @@
 
 <body>
     <main>
+        <div class="settings">
+            <button id="settings-btn"><i class="fas fa-cog"></i></button>
+            <div class="settings-list hidden disallow-focusing">
+                <h1>Maks. ilość plusów</h1>
+                <div class="plus-amount">
+                    <input type="radio" name="select" id="option1">
+                    <input type="radio" name="select" id="option2" checked>
+                    <input type="radio" name="select" id="option3">
+                    <button onclick="updatePlusSettings(0)" class="btn-option btn-option1">
+                        <label for="option1" class="option option1">
+                            <div class="dot"></div>
+                            <span class="unselectable">Zero</span>
+                        </label=>
+                    </button>
+                    <button onclick="updatePlusSettings(1)" class="btn-option btn-option2">
+                        <label for="option2" class="option option2">
+                            <div class="dot"></div>
+                            <span class="unselectable">Jeden</span>
+                        </label>
+                    </button>
+                    <button onclick="updatePlusSettings(2)" class="btn-option btn-option3">
+                        <label for="option3" class="option option3">
+                            <div class="dot"></div>
+                            <span class="unselectable">Dwa</span>
+                        </label>
+                    </button>
+                </div>
+            </div>
+        </div>
         <section class="counter">
             <input type="text" name="data" id="name-data" placeholder="Dane zawodnika...">
             <input type="text" name="route" id="route-data" placeholder="Trasa...">

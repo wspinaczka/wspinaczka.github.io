@@ -35,7 +35,18 @@ html, body {
 }
 .hidden {
     opacity: 0%;
-    visibility: hidden;
+    display: none;
+}
+.disallow-focusing {
+    display: none !important;
+}
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 /*  
 =======================
@@ -58,6 +69,119 @@ hr {
     width: 90%;
     margin: 1rem 0;
     border-bottom: 1px solid var(--acc);
+}
+/*  
+========================
+        Settings
+========================
+*/
+.settings {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 0.5rem;
+}
+#settings-btn {
+    border: none;
+    background: none;
+    font-size: 2rem;
+    width: 2.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+#settings-btn:hover {
+    background: #fff1;
+}
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--acc);
+    background: var(--bg);
+    border-radius: 4px;
+    margin-top: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    transition: all 0.2s ease;
+}
+.settings-list.hidden {
+    transform: translateX(100%);
+    opacity: 0%;
+}
+.settings-list h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+/* ====== plus amount ====== */
+.settings-list .plus-amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.settings-list .plus-amount .btn-option {
+    background: none;
+    border: none;
+    width: min-content;
+    margin: 0 0.5rem;
+}
+.settings-list .plus-amount .option {
+    background: var(--bg3);
+    height: 2rem;
+    width: 6rem;
+    border-radius: 4px;
+    border: 1px solid var(--acc);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: all 0.3s ease;
+}
+.settings-list .plus-amount .option span {
+    color: var(--settings-box-border);
+}
+.settings-list .plus-amount .option .dot {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 999px;
+    border: 2px solid var(--settings-dot-border);
+    transition: all 0.3s ease;
+}
+.settings-list .plus-amount .option .dot::before {
+    content: "";
+    position: absolute;
+    height: 0.5rem;
+    width: 0.5rem;
+    margin-left: -0.25rem;
+    margin-top: 0.125rem;
+    border-radius: 999px;
+    background: var(--blue);
+    opacity: 0;
+}
+.settings-list .plus-amount #option1:checked ~ .btn-option1 .option1,
+.settings-list .plus-amount #option2:checked ~ .btn-option2 .option2,
+.settings-list .plus-amount #option3:checked ~ .btn-option3 .option3 {
+    background: var(--blue);
+}
+.settings-list .plus-amount #option1:checked ~ .btn-option1 .option1 .dot,
+.settings-list .plus-amount #option2:checked ~ .btn-option2 .option2 .dot,
+.settings-list .plus-amount #option3:checked ~ .btn-option3 .option3 .dot {
+    background: var(--settings-main-selected);
+    border-color: var(--settings-main-selected);
+}
+.settings-list .plus-amount #option1:checked ~ .btn-option1 .option1 .dot::before,
+.settings-list .plus-amount #option2:checked ~ .btn-option2 .option2 .dot::before,
+.settings-list .plus-amount #option3:checked ~ .btn-option3 .option3 .dot::before {
+    opacity: 1;
+}
+.settings-list .plus-amount #option1:checked ~ .btn-option1 .option1 span,
+.settings-list .plus-amount #option2:checked ~ .btn-option2 .option2 span,
+.settings-list .plus-amount #option3:checked ~ .btn-option3 .option3 span {
+    color: var(--settings-main-selected);
+}
+.settings-list .plus-amount input {
+    display: none;
 }
 /*
 ======================
@@ -376,6 +500,7 @@ footer {
     box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     overflow: hidden;
+    outline: none;
 }
 .social-media-wrapper .button:hover {
     width: 200px;

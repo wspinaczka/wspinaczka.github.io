@@ -74,10 +74,24 @@ const copyButtons = document.querySelectorAll('.copyToClipboard');
 
 const advancedOptionsBtn = document.querySelector('#advanced-options-btn');
 const advancedOptionsList = document.querySelector('#advanced-options-list');
+
+const userSettingsElements = {
+    btn: document.querySelector('#settings-btn'),
+    list: document.querySelector('.settings-list'),
+    plusCount: [
+        document.querySelector('.settings .plus-amount #option1'),
+        document.querySelector('.settings .plus-amount #option2'),
+        document.querySelector('.settings .plus-amount #option3'),
+    ],
+}
+
 let curNum = 0;
 let prevNum = null;
 let routes = [];
 let dataEntries = {};
+let userSettings = {
+    plusCount: 1,
+}
 resetBtn.addEventListener('click', resetCounter);
 minusBtn.addEventListener('click', substractCounter);
 addBtn.addEventListener('click', addCounter);
@@ -218,8 +232,9 @@ function toDisplayScore(num) {
     if (!num && num != 0) return;
     if (num == 100) return 'top';
     let ret = Math.floor(num).toString();
-    if (num % 1 == 0.5) ret += '+';
-    if (num % 1 == 0.75) ret += '++';
+    if (num % 1 == 0.5 && userSettings.plusCount >= 1) ret += '+';
+    if (num % 1 == 0.75 && userSettings.plusCount == 1) ret += '+';
+    if (num % 1 == 0.75 && userSettings.plusCount == 2) ret += '++';
     return ret;
 }
 function addNewDataEntry() {
@@ -341,7 +356,9 @@ function updateLocalStorageEntries() {
     }
     backupData();
 }
+function updateLocalStorageSettings() {
     try {
+        localStorage.setItem('settings', JSON.stringify(userSettings));
     } catch (error) {
         console.error(error);
     }
@@ -357,12 +374,14 @@ function loadFromLocalStorage(isFromBackup = false) {
         if (isNaN(curNum)) curNum = 0;
         prevNum = Number(localStorage.getItem('prevValue'));
         if (isNaN(prevNum)) prevNum = null;
+        userSettings = JSON.parse(localStorage.getItem('settings')) ?? userSettings;
     } catch (error) {
         console.error(error);
     }
     updateCounter();
     updateRouteSelector();
     updateResultsTable();
+    loadSettings();
 }
 function loadBackupData() {
     loadFromLocalStorage(true);
@@ -373,6 +392,29 @@ function loadBackupData() {
     }).show(5000);
 }
 loadFromLocalStorage();
+function loadSettings() {
+    // plus count
+    userSettingsElements.plusCount[0].checked = false;
+    userSettingsElements.plusCount[1].checked = false;
+    userSettingsElements.plusCount[2].checked = false;
+    if (userSettings.plusCount == 0) userSettingsElements.plusCount[0].checked = true;
+    if (userSettings.plusCount == 1) userSettingsElements.plusCount[1].checked = true;
+    if (userSettings.plusCount == 2) userSettingsElements.plusCount[2].checked = true;
+}
+function getSettings() {
+    if (userSettingsElements.plusCount[0].checked) userSettings.plusCount = 0;
+    else if (userSettingsElements.plusCount[1].checked) userSettings.plusCount = 1;
+    else if (userSettingsElements.plusCount[2].checked) userSettings.plusCount = 2;
+    updateLocalStorageSettings();
+}
+function updatePlusSettings(num) {
+    userSettingsElements.plusCount.forEach((el, index) => {
+        if (index == num) el.checked = true;
+        else el.checked = false;
+    })
+    getSettings();
+    updateCounter();
+}
 function resetAllData() {
     if (confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane zawarte w tabeli? Tej akcji nie da się cofnąć.')) {
         backupData();
