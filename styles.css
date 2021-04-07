@@ -575,7 +575,9 @@ footer {
     overflow: hidden;
     outline: none;
 }
-.social-media-wrapper .button:hover {
+.social-media-wrapper .button:hover,
+.social-media-wrapper .button:focus,
+.social-media-wrapper .button:active {
     width: 200px;
 }
 .social-media-wrapper .button .icon {
@@ -600,18 +602,26 @@ footer {
     margin-left: 10px;
 }
 /* social media buttons individual styling */
-.social-media-wrapper .button.github:hover .icon {
+.social-media-wrapper .button.github:hover .icon,
+.social-media-wrapper .button.github:focus .icon,
+.social-media-wrapper .button.github:active .icon {
     background: #24292e;
     color: white;
 }
-.social-media-wrapper .button.github:hover span {
+.social-media-wrapper .button.github:hover span,
+.social-media-wrapper .button.github:focus span,
+.social-media-wrapper .button.github:active span {
     color: #24292e;
 }
-.social-media-wrapper .button.discord:hover .icon {
+.social-media-wrapper .button.discord:hover .icon,
+.social-media-wrapper .button.discord:focus .icon,
+.social-media-wrapper .button.discord:active .icon {
     background: #7289da;
     color: white;
 }
-.social-media-wrapper .button.discord:hover span {
+.social-media-wrapper .button.discord:hover span,
+.social-media-wrapper .button.discord:focus span,
+.social-media-wrapper .button.discord:active span {
     color: #7289da;
 }
 /* advanced options */
