@@ -108,19 +108,6 @@ routeData.addEventListener('input', () => {
     updateLocalStorageInputs();
 })
 
-function resetCounter(notConfirm) {
-    if (curNum == 0 && !nameData.value.trim() && !routeData.value.trim()) return;
-    if (notConfirm != true) {
-        if (!confirm('Czy na pewno chcesz zresetować pomiar?')) return;
-    }
-    new Toast({
-        message: "Zresetowano.", 
-        type: "success",
-    }).show(5000);
-    curNum = 0;
-    resetInputs();
-    updateCounter();
-}
 advancedOptionsBtn.addEventListener('click', () => {
     showHideMenu(advancedOptionsList);
 });
@@ -166,7 +153,19 @@ function setToTop() {
     else {
         prevNum = curNum;
         curNum = 100;
+function resetCounter(notConfirm) {
+    if (curNum == 0 && !nameData.value.trim() && !routeData.value.trim()) {
+        resetInputs();
+        return;
+    if (notConfirm != true) {
+        if (!confirm('Czy na pewno chcesz zresetować pomiar?')) return;
     }
+    new Toast({
+        message: "Zresetowano.", 
+        type: "success",
+    }).show(5000);
+    curNum = 0;
+    resetInputs();
     updateCounter();
 }
 function finishCounter() {
@@ -177,6 +176,14 @@ function finishCounter() {
             message: "Nie wszystkie pola są wypełnione!", 
             type: "error",
         }).show(5000);
+        return;
+    }
+    if (checkIfNameExists()) {
+        new Toast({
+            message: "Podane dane zawodnika już istnieją!", 
+            type: "error",
+        }).show(5000);
+        nameData.classList.add('error');
         return;
     }
     nameData.classList.remove('error');
@@ -204,6 +211,8 @@ function checkRouteGroup(route) {
 function resetInputs() {
     nameData.value = null;
     routeData.value = null;
+    nameData.classList.remove('error');
+    routeData.classList.remove('error');
 }
 function toDisplayScore(num) {
     if (!num && num != 0) return;
@@ -332,11 +341,7 @@ function updateLocalStorageEntries() {
     }
     backupData();
 }
-function updateLocalStorage() {
     try {
-        localStorage.setItem('wspinaczka.github.io-dataEntries', JSON.stringify(dataEntries));
-        localStorage.setItem('wspinaczka.github.io-routes', JSON.stringify(routes));
-        localStorage.setItem('wspinaczka.github.io-selectorValue', routeSelector.value);
     } catch (error) {
         console.error(error);
     }
