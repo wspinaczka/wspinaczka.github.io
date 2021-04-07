@@ -83,6 +83,7 @@ const userSettingsElements = {
         document.querySelector('.settings .plus-amount #option2'),
         document.querySelector('.settings .plus-amount #option3'),
     ],
+    darkTheme: document.querySelector('#dark-theme'),
 }
 
 let curNum = 0;
@@ -91,6 +92,7 @@ let routes = [];
 let dataEntries = {};
 let userSettings = {
     plusCount: 1,
+    darkTheme: false,
 }
 resetBtn.addEventListener('click', resetCounter);
 minusBtn.addEventListener('click', substractCounter);
@@ -400,13 +402,26 @@ function loadSettings() {
     if (userSettings.plusCount == 0) userSettingsElements.plusCount[0].checked = true;
     if (userSettings.plusCount == 1) userSettingsElements.plusCount[1].checked = true;
     if (userSettings.plusCount == 2) userSettingsElements.plusCount[2].checked = true;
+    // theme
+    if (userSettings.darkTheme) userSettingsElements.darkTheme.checked = true;
+    else userSettingsElements.darkTheme.checked = false;
 }
 function getSettings() {
     if (userSettingsElements.plusCount[0].checked) userSettings.plusCount = 0;
     else if (userSettingsElements.plusCount[1].checked) userSettings.plusCount = 1;
     else if (userSettingsElements.plusCount[2].checked) userSettings.plusCount = 2;
+    userSettings.darkTheme = userSettingsElements.darkTheme.checked;
     updateLocalStorageSettings();
+    loadDarkTheme();
 }
+function loadDarkTheme() {
+    if (userSettings.darkTheme) {
+        document.body.classList.add('dark-theme');
+        return
+    } 
+    document.body.classList.remove('dark-theme');
+}
+loadDarkTheme();
 function updatePlusSettings(num) {
     userSettingsElements.plusCount.forEach((el, index) => {
         if (index == num) el.checked = true;
@@ -414,6 +429,10 @@ function updatePlusSettings(num) {
     })
     getSettings();
     updateCounter();
+}
+function updateThemeSetting() {
+    userSettingsElements.darkTheme.checked = !userSettingsElements.darkTheme.checked;
+    getSettings();
 }
 function resetAllData() {
     if (confirm('Czy na pewno chcesz usunąć WSZYSTKIE dane zawarte w tabeli? Tej akcji nie da się cofnąć.')) {

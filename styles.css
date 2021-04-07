@@ -1,11 +1,36 @@
 /* create variables */
 :root {
-    --orange: #ff4e00;
     --bg: white;
     --bg2: #333;
+    --counter: var(--bg2);
     --blue: #0c64c5;
     --acc: #bbb;
     --bg3: #eee;
+    --bg4: var(--bg3);
+    --settings-dot-border: #999;
+    --settings-box-border: #666;
+    --settings-main-selected: white;
+    --oddrow: #0001;
+    --social-media-bg: white;
+    --social-media-shadow: #0006;
+    --font-col: black;
+}
+body.dark-theme {
+    --bg: #333;
+    --bg2: #888;
+    --counter: #ddd;
+    --blue: #0c64c5;
+    --acc: #888;
+    --bg3: #444;
+    --bg4: #222;
+    --settings-dot-border: #999;
+    --settings-box-border: #666;
+    --settings-main-selected: white;
+    --oddrow: #fff1;
+    --social-media-bg: var(--bg3);
+    --social-media-shadow: #0004;
+    --font-col: white;
+    transition: all 0.3s ease;
 }
 
 /* normalize margins and paddings */
@@ -14,6 +39,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    color: var(--font-col)
 }
 
 ::-moz-focus-inner {
@@ -32,6 +58,7 @@ html, body {
     height: max-content;
     max-width: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 .hidden {
     opacity: 0%;
@@ -183,6 +210,34 @@ hr {
 .settings-list .plus-amount input {
     display: none;
 }
+/* dark theme */
+.settings-list .theme {
+    margin-top: 1.5rem;
+    align-self: flex-end;
+}
+.settings-list .dark-theme {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    font-size: 1.4rem;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+.settings-list #dark-theme {
+    display: none;
+}
+body:not([class=dark-theme]) .light {
+    display: none;
+}
+body.dark-theme .light {
+    display: block;
+}
+body:not([class=dark-theme]) .dark {
+    display: block;
+}
+body.dark-theme .dark {
+    display: none;
+}
 /*
 ======================
         Toasts
@@ -248,6 +303,15 @@ hr {
     cursor: pointer;
 }
 /*  
+===========================================
+        Counter Section Transitions
+===========================================
+*/
+section.counter,
+section.counter * {
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+/*  
 =======================
         Inputs
 =======================
@@ -260,7 +324,7 @@ input[type="text"] {
     background: var(--bg3);
     border: 2px solid var(--bg2);
     border-radius: 4px;
-    color: black;
+    color: var(--font-col);
     padding: 0.2rem 0.4rem;
     transition: border 0.4s ease, background-color 0.4s ease;
 }
@@ -283,7 +347,7 @@ input.error, input.error:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--bg2);
+    color: var(--counter);
     font-size: 8rem;
     text-shadow: 0 0 20px var(--bg2);
     border-radius: 1rem;
@@ -406,13 +470,17 @@ input.error, input.error:focus {
     font-size: 1rem;
     margin-bottom: 1rem;
     padding: 0.2rem 0.4rem;
+    background: var(--bg3);
+    border: 1px solid var(--acc);
+    border-radius: 3px;
+    cursor: pointer;
 }
 .table table {
     margin: 0 auto;
     border-collapse: collapse;
 }
 .table tr:nth-child(even) {
-    background: #0001;
+    background: var(--oddrow);
 }
 .table td, .table th {
     border: 1px solid var(--acc);
@@ -463,6 +531,9 @@ body.hasHover .table tr:hover td:nth-of-type(5) {
     width: 100%;
     height: 100%;
 }
+.table .remove-entry i {
+    color: red;
+}
 .table .top {
     text-decoration: underline;
 }
@@ -473,6 +544,8 @@ body.hasHover .table tr:hover td:nth-of-type(5) {
     border: 2px solid red;
     border-radius: 4px;
     cursor: pointer;
+    background: var(--bg);
+}
 }
 /*  
 ======================
@@ -494,10 +567,10 @@ footer {
     height: 60px;
     width: 60px;
     margin: 0 5px;
-    background: white;
+    background: var(--social-media-bg);
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 10px var(--social-media-shadow);
     transition: all 0.3s ease;
     overflow: hidden;
     outline: none;
