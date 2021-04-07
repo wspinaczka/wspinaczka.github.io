@@ -134,45 +134,53 @@ userSettingsElements.btn.addEventListener('click', () => {
 
 
 function substractCounter() {
-    if (curNum <= 0) return;
-    if (curNum % 1 == 0 || curNum % 1 == 0.75) {
-        curNum -= 0.25;
-        updateCounter();
+    if (curNum <= 0.75) return;
+    if (curNum == 100) {
+        setFromTop();
         return;
     }
-    curNum -= 0.5;
+    curNum -= 1;
     updateCounter();
 }
 function addCounter() {
-    if (curNum > 99) {
-        curNum = 99.75;
+    if (curNum >= 99 && curNum != 100) return;
+    if (curNum == 100) {
+        setFromTop();
         return;
     }
     curNum += 1;
     updateCounter();
 }
 function plusCounter() {
-    if (curNum >= 99.75 ) return;
-    if (curNum % 1 == 0) {
-        curNum += 0.5;
-        updateCounter();
+    if (userSettings.plusCount == 0) return addCounter();
+    if (curNum == 100) {
+        setFromTop();
         return;
     }
-    curNum += 0.25;
+    if (curNum % 1 == 0 && userSettings.plusCount >= 1) curNum += 0.5;
+    else if (curNum % 1 == 0.5 && userSettings.plusCount == 2) curNum += 0.25;
+    else if (curNum % 1 == 0.75 || (curNum % 1 == 0.5 && userSettings.plusCount == 1)) curNum = Math.floor(curNum);
+    else if (userSettings.plusCount == 0) curNum += 1;
     updateCounter();
 }
 function setToTop() {
-    if (curNum == 100) {
-        curNum = prevNum;
-        prevNum = null;
-    }
+    if (curNum == 100) setFromTop();
     else {
         prevNum = curNum;
         curNum = 100;
+        updateCounter();
+    }
+}
+function setFromTop() {
+    curNum = prevNum;
+    prevNum = null;
+    updateCounter();
+}
 function resetCounter(notConfirm) {
     if (curNum == 0 && !nameData.value.trim() && !routeData.value.trim()) {
         resetInputs();
         return;
+    }
     if (notConfirm != true) {
         if (!confirm('Czy na pewno chcesz zresetować pomiar?')) return;
     }
