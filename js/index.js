@@ -410,6 +410,7 @@ function updatePlusSettings(num) {
     })
     getSettings();
     updateCounter();
+    updateResultsTable();
 }
 function updateThemeSetting() {
     userSettingsElements.darkTheme.checked = !userSettingsElements.darkTheme.checked;
