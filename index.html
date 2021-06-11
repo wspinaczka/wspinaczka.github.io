@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="favicon.png" />
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <!-- jQuery --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- xlsx generator --><script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="js/index.js" type="module"></script>
     <script src="js/testForHover.js"></script>
 </head>
@@ -30,7 +30,7 @@
                         <label for="option1" class="option option1">
                             <div class="dot"></div>
                             <span class="unselectable">Zero</span>
-                        </label=>
+                        </label>
                     </button>
                     <button id="button-plusses-one" class="btn-option btn-option2">
                         <label for="option2" class="option option2">
@@ -46,6 +46,7 @@
                     </button>
                 </div>
                 <div class="theme unselectable">
+                    <label for="button-theme"><h3>Motyw</h3></label>
                     <input type="checkbox" name="select" id="dark-theme">
                     <button id="button-theme" class="dark-theme">
                         <i class="light fas fa-sun"></i>
@@ -60,18 +61,18 @@
             <div id="counter">0</div>
             <div class="buttons unselectable">
                 <div class="row wide high">
-                    <button class="lime" id="add" title="Dodaj jeden punkt.">+</button>
+                    <button class="lime" id="add" title="Dodaj jeden punkt."><span>+</span></button>
                 </div>
                 <div class="row narrow">
-                    <button class="red" id="minus" title="Odejmij jeden punkt.">-</button>
-                    <button class="lime" id="plus" title="Dodaj jeden plus.">+</button>
+                    <button class="red" id="minus" title="Odejmij jeden punkt."><span>-</span></button>
+                    <button class="lime" id="plus" title="Dodaj jeden plus."><span>+</span></button>
                 </div>
                 <div class="row wide">
-                    <button class="blue" id="top" title="Oznacz pomiar jako top.">top</button>
+                    <button class="blue" id="top" title="Oznacz pomiar jako top."><span>top</span></button>
                 </div>
                 <div class="row narrow">
-                    <button class="red" id="reset" title="Resetuj.">reset</button>
-                    <button class="green" id="finish" title="Zakończ mierzenie i zapisz wynik.">zakończ</button>
+                    <button class="red" id="reset" title="Resetuj."><span>reset</span></button>
+                    <button class="green" id="finish" title="Zakończ mierzenie i zapisz wynik."><span>zakończ</span></button>
                 </div>
             </div>
         </section>
@@ -91,7 +92,10 @@
                     <td colspan="4">Brak danych!</td>
                 </tr>
             </table>
-            <button id="reset-data">Resetuj dane</button>
+            <div class="results-buttons">
+                <button id="reset-data"><i class="fas fa-times"></i>Resetuj dane</button>
+                <button id="download-data"><i class="fas fa-download"></i>Pobierz dane</button>
+            </div>
         </section>
     </main>
     <footer>

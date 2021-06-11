@@ -1,4 +1,5 @@
 import { Toast } from './toast.js';
+import { generateXLSFile } from './excel.js';
 
 const resetBtn = document.querySelector('#reset');
 const minusBtn = document.querySelector('#minus');
@@ -14,6 +15,7 @@ const counter = document.querySelector('#counter');
 const routeSelector = document.querySelector('#routes-selector');
 const resultsTable = document.querySelector('#results');
 const resetAllButton = document.querySelector('#reset-data');
+const downloadDataButton = document.querySelector('#download-data');
 
 const copyButtons = document.querySelectorAll('.copyToClipboard');
 
@@ -53,6 +55,9 @@ finishBtn.addEventListener('click', finishCounter);
 routeSelector.addEventListener('change', updateResultsTable);
 
 resetAllButton.addEventListener('click', resetAllData);
+downloadDataButton.addEventListener('click', () => {
+    generateXLSFile(dataEntries);
+});
 
 copyButtons.forEach(el => {
     el.addEventListener('click', () => {
@@ -187,13 +192,12 @@ function resetInputs() {
     nameData.classList.remove('error');
     routeData.classList.remove('error');
 }
-function toDisplayScore(num) {
+export function toDisplayScore(num) {
     if (!num && num != 0) return;
     if (num == 100) return 'top';
     let ret = Math.floor(num).toString();
-    if (num % 1 == 0.5 && userSettings.plusCount >= 1) ret += '+';
-    if (num % 1 == 0.75 && userSettings.plusCount == 1) ret += '+';
-    if (num % 1 == 0.75 && userSettings.plusCount == 2) ret += '++';
+    if (num % 1 == 0.5) ret += '+';
+    if (num % 1 == 0.75) ret += '++';
     return ret;
 }
 function addNewDataEntry() {
@@ -410,7 +414,7 @@ function updatePlusSettings(num) {
     })
     getSettings();
     updateCounter();
-    updateResultsTable();
+    // updateResultsTable();
 }
 function updateThemeSetting() {
     userSettingsElements.darkTheme.checked = !userSettingsElements.darkTheme.checked;

@@ -11,6 +11,7 @@
     --bg2: #333;
     --counter: var(--bg2);
     --blue: #0c64c5;
+    --blue-rgb: 12, 100, 197;
     --acc: #bbb;
     --bg3: #eee;
     --bg4: var(--bg3);
@@ -152,6 +153,9 @@ hr {
     font-size: 1rem;
     margin-bottom: 0.4rem;
 }
+.settings-list h3 {
+    font-size: 0.8rem;
+}
 /* ====== plus amount ====== */
 .settings-list .plus-amount {
     display: flex;
@@ -225,6 +229,13 @@ hr {
 .settings-list .theme {
     margin-top: 1.5rem;
     align-self: flex-end;
+    display: flex;
+}
+.settings-list .theme label {
+    margin-right: 0.3rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .settings-list #button-theme {
     cursor: pointer;
@@ -330,11 +341,12 @@ input.error, input.error:focus {
     justify-content: space-between;
     align-items: flex-end;
 }
-
 .buttons button:focus {
     outline: none;
 }
-
+.buttons button:focus span {
+    text-shadow: 4px 4px 6px black;
+}
 .row.wide button {
     width: 23rem;
 }
@@ -435,6 +447,9 @@ input.error, input.error:focus {
 .table tr:nth-child(even) {
     background: var(--oddrow);
 }
+.table tr:hover td:not(:last-of-type) {
+    background: rgba(var(--blue-rgb),0.1);
+}
 .table td, .table th {
     border: 1px solid var(--acc);
 }
@@ -487,6 +502,9 @@ body.hasHover .table tr:hover td:nth-of-type(5) {
 .table .remove-entry i {
     color: red;
 }
+body.dark-theme .table .remove-entry i {
+    text-shadow: 0 0 10px rgba(0,0,0,0.75);
+}
 .table .top {
     text-decoration: underline;
 }
@@ -498,6 +516,30 @@ body.hasHover .table tr:hover td:nth-of-type(5) {
     border-radius: 4px;
     cursor: pointer;
     background: var(--bg);
+}
+.table #reset-data i {
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+    color: red;
+}
+body.dark-theme .table #download-data {
+    --button-color: rgb(54, 192, 0);
+}
+.table #download-data {
+    --button-color: green;
+    margin-top: 4rem;
+    color: var(--button-color);
+    padding: 0.3rem 0.5rem;
+    border: 2px solid var(--button-color);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--bg);
+    margin-left: 0.5rem;
+}
+.table #download-data i {
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--button-color);
 }
 .table tr.highlighted-row {
     background-color: rgb(54, 192, 0);
