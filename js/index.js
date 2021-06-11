@@ -1,59 +1,4 @@
-const iconMap = {
-    success: 'check-circle',
-    warn: 'exclamation-circle',
-    error: 'exclamation-circle',
-    disallow: 'times-circle',
-    info: 'info-circle',
-}
-class Toast {
-    static defaults = {
-        time: 3000,
-    }
-    constructor(options) {
-        this.hideTimeout = null;
-        this.el = document.createElement("div");
-        this.el.className = "Toaster toast";
-        this.el.textContent = (typeof(options) == "string" ? options : undefined) ?? options?.message ?? options?.msg ?? '';
-        if (options && typeof(options) == 'object') {
-            if (options.class && typeof(options.class) == "array") {
-                options.class.forEach(cl => {
-                    this.el.classList.add(cl);
-                })
-            }
-        }
-        this.time = options?.time ?? Toast.defaults.time;
-
-        if (options?.type && iconMap[options.type]) {
-            this.icon = document.createElement('i');
-            this.icon.className = `toast-icon fas fa-${iconMap[options.type]}`;
-            this.el.appendChild(this.icon);
-        }
-        if (!options?.closeButton && !options?.closeBtn) {
-            this.closeBtn = document.createElement('div');
-            this.closeBtn.className = `toast-close fas fa-times`;
-            this.closeBtn.addEventListener('click', () => {
-                this.hide();
-            });
-            this.el.appendChild(this.closeBtn);
-        }
-
-        if (options?.type) {
-            this.el.classList.add(`toast--${options.type}`);
-        }
-        document.body.appendChild(this.el);
-    }
-    show(time) {
-        clearTimeout(this.hideTimeout);
-        this.el.classList.add("toast--visible");
-        this.hideTimeout = setTimeout(() => {
-            this.el.classList.remove("toast--visible");
-        }, time ?? this.time);
-    }
-    hide() {
-        clearTimeout(this.hideTimeout);
-        this.el.classList.remove("toast--visible");
-    }
-}
+import { Toast } from './toast.js';
 
 const resetBtn = document.querySelector('#reset');
 const minusBtn = document.querySelector('#minus');
@@ -94,6 +39,10 @@ let userSettings = {
     plusCount: 1,
     darkTheme: false,
 }
+$('#button-plusses-zero').on('click', () => { updatePlusSettings(0); });
+$('#button-plusses-one').on('click', () => { updatePlusSettings(1); });
+$('#button-plusses-two').on('click', () => { updatePlusSettings(2); });
+$('#button-theme').on('click', () => { updateThemeSetting(); });
 resetBtn.addEventListener('click', resetCounter);
 minusBtn.addEventListener('click', substractCounter);
 addBtn.addEventListener('click', addCounter);
@@ -264,6 +213,7 @@ function addNewDataEntry() {
     document.getElementById("row-to-highlight").scrollIntoView();
 }
 function checkIfNameExists() {
+    if (!dataEntries[routeData.value.toUpperCase()]) return false;
     let names = [];
     dataEntries[routeData.value.toUpperCase()].forEach(el => {
         names.push(el.name);
@@ -276,7 +226,7 @@ function removeDataEntry(index) {
         dataEntries[routeSelector.value].splice(index, 1);
         if (dataEntries[routeSelector.value].length == 0) {
             routes.splice(routes.indexOf(routeSelector.value), 1);
-            delete dataEntries[routeSelector.value]
+            delete dataEntries[routeSelector.value];
             if (Object.keys(dataEntries).length == 0) {
                 resultsTable.innerHTML = `<tr><th>#</th><th>Zawodnik</th><th>Wynik</th><th>Trasa</th><th></th></tr><tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`
                 isEmpty = true;
@@ -324,7 +274,7 @@ function updateResultsTable() {
 
     if (forceNoData) {
         let endRow = document.createElement('tr')
-        endRow.innerHTML = `<tr class="blankCell"><td colspan="5">Brak danych!</td></tr>`
+        endRow.innerHTML = `<tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`
         resultsTable.appendChild(endRow)
         updateLocalStorageEntries();
         return;
@@ -356,7 +306,10 @@ function updateResultsTable() {
         td3.innerHTML = toDisplayScore(entry.score);
         if (td3.innerHTML == "top") td3.classList.add('top');
         td4.innerHTML = entry.route;
-        td5.innerHTML = `<button class="remove-entry" onclick="removeDataEntry(${index})"><i class="fas fa-trash"></i></button>`;
+        td5.innerHTML = `<button class="remove-entry"><i class="fas fa-trash"></i></button>`;
+        td5.addEventListener('click', () => {
+            removeDataEntry(index);
+        })
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);

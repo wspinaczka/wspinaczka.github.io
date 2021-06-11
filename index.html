@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wspinaczka</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="favicon.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <script src="index.js" defer></script>
-    <script src="testForHover.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="js/index.js" type="module"></script>
+    <script src="js/testForHover.js"></script>
 </head>
 
 <body>
@@ -26,19 +26,19 @@
                     <input type="radio" name="select" id="option1">
                     <input type="radio" name="select" id="option2" checked>
                     <input type="radio" name="select" id="option3">
-                    <button onclick="updatePlusSettings(0)" class="btn-option btn-option1">
+                    <button id="button-plusses-zero" class="btn-option btn-option1">
                         <label for="option1" class="option option1">
                             <div class="dot"></div>
                             <span class="unselectable">Zero</span>
                         </label=>
                     </button>
-                    <button onclick="updatePlusSettings(1)" class="btn-option btn-option2">
+                    <button id="button-plusses-one" class="btn-option btn-option2">
                         <label for="option2" class="option option2">
                             <div class="dot"></div>
                             <span class="unselectable">Jeden</span>
                         </label>
                     </button>
-                    <button onclick="updatePlusSettings(2)" class="btn-option btn-option3">
+                    <button id="button-plusses-two" class="btn-option btn-option3">
                         <label for="option3" class="option option3">
                             <div class="dot"></div>
                             <span class="unselectable">Dwa</span>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="theme unselectable">
                     <input type="checkbox" name="select" id="dark-theme">
-                    <button onclick="updateThemeSetting()" class="dark-theme">
+                    <button id="button-theme" class="dark-theme">
                         <i class="light fas fa-sun"></i>
                         <i class="dark fas fa-moon"></i>
                     </button>
@@ -96,7 +96,7 @@
     </main>
     <footer>
         <div class="social-media-wrapper">
-            <a href="https://github.com/joker876" target="_blank" class="button github">
+            <a href="https://github.com/wspinaczka/wspinaczka.github.io" target="_blank" class="button github">
                 <div class="icon">
                     <i class="fab fa-github"></i>
                 </div>
