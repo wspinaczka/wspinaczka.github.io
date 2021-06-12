@@ -73,7 +73,7 @@ userSettingsElements.btn.on('click', () => {
 });
 
 window.onscroll = () => {
-    if (!isElementVisible(userSettingsElements.list)) {
+    if (!userSettingsElements.list.hasClass('hidden') && !userSettingsElements.list.isInViewport()) {
         showHideMenu(userSettingsElements.list)
     }
 };
@@ -453,9 +453,10 @@ function showHideMenu(el) {
         }
     }, 50);
 }
-function isElementVisible(el) {
-    const top = el.offset().top
-    const bottom = top + el.height();
-    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    return !(bottom < 0 || top - viewHeight >= 0);
-}
+$.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
