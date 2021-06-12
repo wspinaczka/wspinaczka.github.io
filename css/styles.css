@@ -127,9 +127,16 @@ hr {
     width: 2.5rem;
     cursor: pointer;
     border-radius: 4px;
+    transition: all 0.2s ease;
 }
 #settings-btn:hover {
     background: #fff1;
+}
+#settings-btn i {
+    transition: all 0.2s ease;
+}
+#settings-btn:hover i {
+    transform: rotate(60deg);
 }
 .settings-list {
     display: flex;
