@@ -77,14 +77,18 @@ routeData.addEventListener('input', () => {
     }
     updateLocalStorageInputs();
 })
-
 advancedOptionsBtn.addEventListener('click', () => {
     showHideMenu(advancedOptionsList);
 });
-
 userSettingsElements.btn.addEventListener('click', () => {
     showHideMenu(userSettingsElements.list);
 });
+
+window.onscroll = () => {
+    if (!isElementVisible(userSettingsElements.list)) {
+        showHideMenu(userSettingsElements.list)
+    }
+};
 
 
 function substractCounter() {
@@ -460,4 +464,9 @@ function showHideMenu(el) {
             }, 200);
         }
     }, 50);
+}
+function isElementVisible(el) {
+    var rect = el.getBoundingClientRect();
+    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 }
