@@ -1,36 +1,22 @@
 import { Toast } from './toast.js';
 import { generateXLSFile } from './excel.js';
 
-const resetBtn = document.querySelector('#reset');
-const minusBtn = document.querySelector('#minus');
-const addBtn = document.querySelector('#add');
-const plusBtn = document.querySelector('#plus');
-const topBtn = document.querySelector('#top');
-const finishBtn = document.querySelector('#finish');
+const nameData = $('#name-data');
+const routeData = $('#route-data');
+const counter = $('#counter');
 
-const nameData = document.querySelector('#name-data');
-const routeData = document.querySelector('#route-data');
-const counter = document.querySelector('#counter');
-
-const routeSelector = document.querySelector('#routes-selector');
-const resultsTable = document.querySelector('#results');
-const resetAllButton = document.querySelector('#reset-data');
-const downloadDataButton = document.querySelector('#download-data');
-
-const copyButtons = document.querySelectorAll('.copyToClipboard');
-
-const advancedOptionsBtn = document.querySelector('#advanced-options-btn');
-const advancedOptionsList = document.querySelector('#advanced-options-list');
+const routeSelector = $('#routes-selector');
+const resultsTable = $('#results');
 
 const userSettingsElements = {
-    btn: document.querySelector('#settings-btn'),
-    list: document.querySelector('.settings-list'),
+    btn: $('#settings-btn'),
+    list: $('.settings-list'),
     plusCount: [
-        document.querySelector('.settings .plus-amount #option1'),
-        document.querySelector('.settings .plus-amount #option2'),
-        document.querySelector('.settings .plus-amount #option3'),
+        $('.settings .plus-amount #option1'),
+        $('.settings .plus-amount #option2'),
+        $('.settings .plus-amount #option3'),
     ],
-    darkTheme: document.querySelector('#dark-theme'),
+    darkTheme: $('#dark-theme'),
 }
 
 let curNum = 0;
@@ -41,46 +27,48 @@ let userSettings = {
     plusCount: 1,
     darkTheme: false,
 }
+//settings
 $('#button-plusses-zero').on('click', () => { updatePlusSettings(0); });
 $('#button-plusses-one').on('click', () => { updatePlusSettings(1); });
 $('#button-plusses-two').on('click', () => { updatePlusSettings(2); });
 $('#button-theme').on('click', () => { updateThemeSetting(); });
-resetBtn.addEventListener('click', resetCounter);
-minusBtn.addEventListener('click', substractCounter);
-addBtn.addEventListener('click', addCounter);
-plusBtn.addEventListener('click', plusCounter);
-topBtn.addEventListener('click', setToTop);
-finishBtn.addEventListener('click', finishCounter);
+//counter
+$('#reset').on('click', resetCounter);
+$('#minus').on('click', substractCounter);
+$('#add').on('click', addCounter);
+$('#plus').on('click', plusCounter);
+$('#top').on('click', setToTop);
+$('#finish').on('click', finishCounter);
 
-routeSelector.addEventListener('change', updateResultsTable);
+routeSelector.on('change', updateResultsTable);
 
-resetAllButton.addEventListener('click', resetAllData);
-downloadDataButton.addEventListener('click', () => {
+$('#reset-data').on('click', resetAllData);
+$('#download-data').on('click', () => {
     generateXLSFile(dataEntries);
 });
 
-copyButtons.forEach(el => {
+$('.copyToClipboard').each((i, el) => {
     el.addEventListener('click', () => {
         copyToClipboard(el.getAttribute('copyValue'));
     });
 })
 
-nameData.addEventListener('input', () => {
-    if (nameData.classList.contains('error') && nameData.value.trim()) {
-        nameData.classList.remove('error');
+nameData.on('input', () => {
+    if (nameData.hasClass('error') && nameData.val().trim()) {
+        nameData.removeClass('error');
     }
     updateLocalStorageInputs();
 })
-routeData.addEventListener('input', () => {
-    if (routeData.classList.contains('error') && routeData.value.trim()) {
-        routeData.classList.remove('error');
+routeData.on('input', () => {
+    if (routeData.hasClass('error') && routeData.val().trim()) {
+        routeData.removeClass('error');
     }
     updateLocalStorageInputs();
 })
-advancedOptionsBtn.addEventListener('click', () => {
-    showHideMenu(advancedOptionsList);
+$('#advanced-options-btn').on('click', () => {
+    showHideMenu($('#advanced-options-list'));
 });
-userSettingsElements.btn.addEventListener('click', () => {
+userSettingsElements.btn.on('click', () => {
     showHideMenu(userSettingsElements.list);
 });
 
@@ -135,7 +123,7 @@ function setFromTop() {
     updateCounter();
 }
 function resetCounter(notConfirm) {
-    if (curNum == 0 && !nameData.value.trim() && !routeData.value.trim()) {
+    if (curNum == 0 && !nameData.val().trim() && !routeData.val().trim()) {
         resetInputs();
         return;
     }
@@ -151,9 +139,9 @@ function resetCounter(notConfirm) {
     updateCounter();
 }
 function finishCounter() {
-    if (!nameData.value) nameData.classList.add('error');
-    if (!routeData.value) routeData.classList.add('error');
-    if (!nameData.value || !routeData.value) {
+    if (!nameData.val()) nameData.addClass('error');
+    if (!routeData.val()) routeData.addClass('error');
+    if (!nameData.val() || !routeData.val()) {
         new Toast({
             message: "Nie wszystkie pola są wypełnione!", 
             type: "error",
@@ -165,11 +153,11 @@ function finishCounter() {
             message: "Podane dane zawodnika już istnieją!", 
             type: "error",
         }).show(5000);
-        nameData.classList.add('error');
+        nameData.addClass('error');
         return;
     }
-    nameData.classList.remove('error');
-    routeData.classList.remove('error');
+    nameData.removeClass('error');
+    routeData.removeClass('error');
     if (confirm('Czy na pewno chcesz zakończyć pomiar?')) {
         addNewDataEntry();
         resetCounter(true);
@@ -181,7 +169,7 @@ function finishCounter() {
 }
 function updateCounter() {
     updateLocalStorageInputs();
-    counter.innerHTML = toDisplayScore(curNum);
+    counter.html(toDisplayScore(curNum));
 }
 function checkRouteGroup(route) {
     route = route.toUpperCase();
@@ -191,10 +179,10 @@ function checkRouteGroup(route) {
     }
 }
 function resetInputs() {
-    nameData.value = null;
-    routeData.value = null;
-    nameData.classList.remove('error');
-    routeData.classList.remove('error');
+    nameData.val(null);
+    routeData.val(null);
+    nameData.removeClass('error');
+    routeData.removeClass('error');
 }
 export function toDisplayScore(num) {
     if (!num && num != 0) return;
@@ -205,10 +193,10 @@ export function toDisplayScore(num) {
     return ret;
 }
 function addNewDataEntry() {
-    let route = routeData.value.toUpperCase();
+    let route = routeData.val().toUpperCase();
     checkRouteGroup(route);
     let newDataEntry = {
-        name: nameData.value,
+        name: nameData.val(),
         route,
         score: curNum,
         displayScore: toDisplayScore(curNum),
@@ -216,27 +204,27 @@ function addNewDataEntry() {
     }
     dataEntries[route].push(newDataEntry);
     updateRouteSelector();
-    routeSelector.value = route;
+    routeSelector.val(route);
     updateResultsTable();
     document.getElementById("row-to-highlight").scrollIntoView();
 }
 function checkIfNameExists() {
-    if (!dataEntries[routeData.value.toUpperCase()]) return false;
+    if (!dataEntries[routeData.val().toUpperCase()]) return false;
     let names = [];
-    dataEntries[routeData.value.toUpperCase()].forEach(el => {
+    dataEntries[routeData.val().toUpperCase()].forEach(el => {
         names.push(el.name);
     })
-    return names.includes(nameData.value);
+    return names.includes(nameData.val());
 }
 function removeDataEntry(index) {
     let isEmpty = false;
     if (confirm('Czy na pewno chcesz usunąć ten wiersz?')) {
-        dataEntries[routeSelector.value].splice(index, 1);
-        if (dataEntries[routeSelector.value].length == 0) {
-            routes.splice(routes.indexOf(routeSelector.value), 1);
-            delete dataEntries[routeSelector.value];
+        dataEntries[routeSelector.val()].splice(index, 1);
+        if (dataEntries[routeSelector.val()].length == 0) {
+            routes.splice(routes.indexOf(routeSelector.val()), 1);
+            delete dataEntries[routeSelector.val()];
             if (Object.keys(dataEntries).length == 0) {
-                resultsTable.innerHTML = `<tr><th>#</th><th>Zawodnik</th><th>Wynik</th><th>Trasa</th><th></th></tr><tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`
+                resultsTable.html(`<tr><th>#</th><th>Zawodnik</th><th>Wynik</th><th>Trasa</th><th></th></tr><tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`)
                 isEmpty = true;
             }
         }
@@ -249,19 +237,19 @@ function removeDataEntry(index) {
     }).show(5000);
 }
 function updateRouteSelector() {
-    routeSelector.innerHTML = '';
+    routeSelector.html('');
     routes?.sort();
     routes.forEach((route,i) => {
-        routeSelector[i] = new Option(route, route);
+        routeSelector.append(new Option(route, route));
     })
 }
 function updateResultsTable() {
     // if (!routeSelector.value) return;
     let forceNoData = false;
-    if (!dataEntries[routeSelector.value]) {
+    if (!dataEntries[routeSelector.val()]) {
         forceNoData = true;
     }
-    resultsTable.innerHTML = '';
+    resultsTable.html('');
     let row1 = document.createElement('tr');
     let th1 = document.createElement('th');
     let th2 = document.createElement('th');
@@ -278,20 +266,20 @@ function updateResultsTable() {
     row1.appendChild(th3);
     row1.appendChild(th4);
     row1.appendChild(th5);
-    resultsTable.appendChild(row1)
+    resultsTable.append(row1)
 
     if (forceNoData) {
         let endRow = document.createElement('tr')
         endRow.innerHTML = `<tr class="blankCell"><td colspan="4">Brak danych!</td></tr>`
-        resultsTable.appendChild(endRow)
+        resultsTable.append(endRow)
         updateLocalStorageEntries();
         return;
     }
 
-    dataEntries[routeSelector.value].sort((a, b) => {
+    dataEntries[routeSelector.val()].sort((a, b) => {
         return b.score - a.score;
     })
-    dataEntries[routeSelector.value].forEach((entry, index) => {
+    dataEntries[routeSelector.val()].forEach((entry, index) => {
         let row = document.createElement('tr');
         if (!entry.wasHighlighted) {
             row.id = 'row-to-highlight';
@@ -323,14 +311,14 @@ function updateResultsTable() {
         row.appendChild(td3);
         row.appendChild(td4);
         row.appendChild(td5);
-        resultsTable.appendChild(row);
+        resultsTable.append(row);
     })
     updateLocalStorageEntries();
 }
 function updateLocalStorageInputs() {
     try {
-        localStorage.setItem('nameDataValue', nameData.value);
-        localStorage.setItem('routeDataValue', routeData.value);
+        localStorage.setItem('nameDataValue', nameData.val());
+        localStorage.setItem('routeDataValue', routeData.val());
         localStorage.setItem('counterValue', curNum);
         localStorage.setItem('prevValue', prevNum);
     } catch (e) {
@@ -341,7 +329,7 @@ function updateLocalStorageEntries() {
     try {
         localStorage.setItem('dataEntries', JSON.stringify(dataEntries));
         localStorage.setItem('routes', JSON.stringify(routes));
-        localStorage.setItem('selectorValue', routeSelector.value);
+        localStorage.setItem('selectorValue', routeSelector.val());
     } catch (error) {
         console.error(error);
     }
@@ -358,9 +346,9 @@ function loadFromLocalStorage(isFromBackup = false) {
     try {
         dataEntries = JSON.parse(localStorage.getItem(`dataEntries${isFromBackup ? ('-BACKUP') : ''}`)) ?? {};
         routes = JSON.parse(localStorage.getItem(`routes${isFromBackup ? ('-BACKUP') : ''}`)) ?? [];
-        routeSelector.value = localStorage.getItem(`selectorValue${isFromBackup ? ('-BACKUP') : ''}`);
-        nameData.value = localStorage.getItem('nameDataValue');
-        routeData.value = localStorage.getItem('routeDataValue');
+        routeSelector.val(localStorage.getItem(`selectorValue${isFromBackup ? ('-BACKUP') : ''}`));
+        nameData.val(localStorage.getItem('nameDataValue'));
+        routeData.val(localStorage.getItem('routeDataValue'));
         curNum = Number(localStorage.getItem('counterValue'));
         if (isNaN(curNum)) curNum = 0;
         prevNum = Number(localStorage.getItem('prevValue'));
@@ -385,21 +373,21 @@ function loadBackupData() {
 loadFromLocalStorage();
 function loadSettings() {
     // plus count
-    userSettingsElements.plusCount[0].checked = false;
-    userSettingsElements.plusCount[1].checked = false;
-    userSettingsElements.plusCount[2].checked = false;
-    if (userSettings.plusCount == 0) userSettingsElements.plusCount[0].checked = true;
-    if (userSettings.plusCount == 1) userSettingsElements.plusCount[1].checked = true;
-    if (userSettings.plusCount == 2) userSettingsElements.plusCount[2].checked = true;
+    userSettingsElements.plusCount[0].prop('checked', false);
+    userSettingsElements.plusCount[1].prop('checked', false);
+    userSettingsElements.plusCount[2].prop('checked', false);
+    if (userSettings.plusCount == 0) userSettingsElements.plusCount[0].prop('checked', true);
+    if (userSettings.plusCount == 1) userSettingsElements.plusCount[1].prop('checked', true);
+    if (userSettings.plusCount == 2) userSettingsElements.plusCount[2].prop('checked', true);
     // theme
-    if (userSettings.darkTheme) userSettingsElements.darkTheme.checked = true;
-    else userSettingsElements.darkTheme.checked = false;
+    if (userSettings.darkTheme) userSettingsElements.darkTheme.prop('checked', true);
+    else userSettingsElements.darkTheme.prop('checked', false);
 }
 function getSettings() {
-    if (userSettingsElements.plusCount[0].checked) userSettings.plusCount = 0;
-    else if (userSettingsElements.plusCount[1].checked) userSettings.plusCount = 1;
-    else if (userSettingsElements.plusCount[2].checked) userSettings.plusCount = 2;
-    userSettings.darkTheme = userSettingsElements.darkTheme.checked;
+    if (userSettingsElements.plusCount[0].is(':checked')) userSettings.plusCount = 0;
+    else if (userSettingsElements.plusCount[1].is(':checked')) userSettings.plusCount = 1;
+    else if (userSettingsElements.plusCount[2].is(':checked')) userSettings.plusCount = 2;
+    userSettings.darkTheme = userSettingsElements.darkTheme.is(':checked');
     updateLocalStorageSettings();
     loadDarkTheme();
 }
@@ -412,16 +400,16 @@ function loadDarkTheme() {
 }
 loadDarkTheme();
 function updatePlusSettings(num) {
-    userSettingsElements.plusCount.forEach((el, index) => {
-        if (index == num) el.checked = true;
-        else el.checked = false;
+    userSettingsElements.plusCount.each((index, el) => {
+        if (index == num) el.prop('checked', true);
+        else el.prop('checked', false);
     })
     getSettings();
     updateCounter();
     // updateResultsTable();
 }
 function updateThemeSetting() {
-    userSettingsElements.darkTheme.checked = !userSettingsElements.darkTheme.checked;
+    userSettingsElements.darkTheme.prop('checked', !userSettingsElements.darkTheme.is(':checked'));
     getSettings();
 }
 function resetAllData() {
@@ -437,7 +425,7 @@ function backupData() {
     try {
         localStorage.setItem('dataEntries-BACKUP', JSON.stringify(dataEntries));
         localStorage.setItem('routes-BACKUP', JSON.stringify(routes));
-        localStorage.setItem('selectorValue-BACKUP', routeSelector.value);
+        localStorage.setItem('selectorValue-BACKUP', routeSelector.val());
     } catch (error) {
         console.error(error);
     }
@@ -455,18 +443,19 @@ function copyToClipboard(str) {
     new Toast({message: 'Skopiowano', type: 'success'}).show(2000);
 }
 function showHideMenu(el) {
-    el.classList.remove('disallow-focusing');
+    el.removeClass('disallow-focusing');
     setTimeout(() => {
-        el.classList.toggle('hidden');
-        if (el.classList.contains('hidden')) {
+        el.toggleClass('hidden');
+        if (el.hasClass('hidden')) {
             setTimeout(() => {
-                el.classList.add('disallow-focusing');
+                el.addClass('disallow-focusing');
             }, 200);
         }
     }, 50);
 }
 function isElementVisible(el) {
-    var rect = el.getBoundingClientRect();
-    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+    const top = el.offset().top
+    const bottom = top + el.height();
+    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return !(bottom < 0 || top - viewHeight >= 0);
 }
