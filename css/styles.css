@@ -518,6 +518,7 @@ body.dark-theme .table .remove-entry i {
 }
 .table #reset-data {
     margin-top: 4rem;
+    height: 2.2rem;
     color: red;
     padding: 0.3rem 0.5rem;
     border: 2px solid red;
@@ -536,6 +537,7 @@ body.dark-theme .table #download-data {
 .table #download-data {
     --button-color: green;
     margin-top: 4rem;
+    height: 2.2rem;
     color: var(--button-color);
     padding: 0.3rem 0.5rem;
     border: 2px solid var(--button-color);
@@ -687,6 +689,12 @@ body.hasHover .social-media-wrapper .button.discord:active span {
 }
 #advanced-options-btn:hover {
     background: #fff1;
+}
+#advanced-options-btn i {
+    transition: all 0.2s ease;
+}
+#advanced-options-list:not(.hidden) + #advanced-options-btn i {
+    transform: rotate(-45deg);
 }
 
 /*  
