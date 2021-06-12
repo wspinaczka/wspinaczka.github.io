@@ -48,23 +48,23 @@
     opacity: 1;
     visibility: visible;
 }
-.toast--success {
+.toast--success, .toast--success * {
     background: #bdeca8;
     border-color: #54a330;
     color: #42742b;
 }
-.toast--info {
+.toast--info, .toast--info * {
     background: #CCE8F4;
     border-color: #4D7FA3;
     color: #4D7FA3;
 }
-.toast--disallow,
-.toast--error {
+.toast--disallow, .toast--disallow *,
+.toast--error, .toast--error * {
     background: #EBC8C2;
     border-color: #AA3132;
     color: #AA3132;
 }
-.toast--warn {
+.toast--warn, .toast--warn * {
     background: #F8F3D6;
     border-color: #927947;
     color: #927947;
