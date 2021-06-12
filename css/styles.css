@@ -115,7 +115,7 @@ hr {
     top: 0;
     right: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: flex-start;
     align-items: flex-end;
     padding: 0.5rem;
@@ -135,7 +135,7 @@ hr {
 #settings-btn i {
     transition: all 0.2s ease;
 }
-#settings-btn:hover i {
+.settings-list:not(.hidden) + #settings-btn i {
     transform: rotate(60deg);
 }
 .settings-list {
@@ -337,10 +337,11 @@ input.error, input.error:focus {
     border-radius: 1rem;
     border: none;
     background: transparent;
-    color: var(--bg2);
     cursor: pointer;
     font-family: 'Varela Round', sans-serif;
     margin: 0.5rem;
+}
+.buttons button span {
     color: white;
 }
 .row {
