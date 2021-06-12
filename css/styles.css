@@ -580,9 +580,9 @@ footer {
     overflow: hidden;
     outline: none;
 }
-.social-media-wrapper .button:hover,
-.social-media-wrapper .button:focus,
-.social-media-wrapper .button:active {
+body.hasHover .social-media-wrapper .button:hover,
+body.hasHover .social-media-wrapper .button:focus,
+body.hasHover .social-media-wrapper .button:active {
     width: 200px;
 }
 .social-media-wrapper .button .icon {
@@ -607,31 +607,31 @@ footer {
     margin-left: 10px;
 }
 /* social media buttons individual styling */
-.social-media-wrapper .button.github:hover .icon,
-.social-media-wrapper .button.github:focus .icon,
-.social-media-wrapper .button.github:active .icon {
+body.hasHover .social-media-wrapper .button.github:hover .icon,
+body.hasHover .social-media-wrapper .button.github:focus .icon,
+body.hasHover .social-media-wrapper .button.github:active .icon {
     background: #24292e;
     color: white;
 }
-.social-media-wrapper .button.github:hover span,
-.social-media-wrapper .button.github:focus span,
-.social-media-wrapper .button.github:active span {
+body.hasHover .social-media-wrapper .button.github:hover span,
+body.hasHover .social-media-wrapper .button.github:focus span,
+body.hasHover .social-media-wrapper .button.github:active span {
     color: #24292e;
 }
-body.dark-theme .social-media-wrapper .button.github:hover span,
-body.dark-theme .social-media-wrapper .button.github:focus span,
-body.dark-theme .social-media-wrapper .button.github:active span {
+body.hasHover.dark-theme .social-media-wrapper .button.github:hover span,
+body.hasHover.dark-theme .social-media-wrapper .button.github:focus span,
+body.hasHover.dark-theme .social-media-wrapper .button.github:active span {
     color: white;
 }
-.social-media-wrapper .button.discord:hover .icon,
-.social-media-wrapper .button.discord:focus .icon,
-.social-media-wrapper .button.discord:active .icon {
+body.hasHover .social-media-wrapper .button.discord:hover .icon,
+body.hasHover .social-media-wrapper .button.discord:focus .icon,
+body.hasHover .social-media-wrapper .button.discord:active .icon {
     background: #7289da;
     color: white;
 }
-.social-media-wrapper .button.discord:hover span,
-.social-media-wrapper .button.discord:focus span,
-.social-media-wrapper .button.discord:active span {
+body.hasHover .social-media-wrapper .button.discord:hover span,
+body.hasHover .social-media-wrapper .button.discord:focus span,
+body.hasHover .social-media-wrapper .button.discord:active span {
     color: #7289da;
 }
 /* advanced options */
