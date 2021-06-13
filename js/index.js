@@ -400,7 +400,7 @@ function loadDarkTheme() {
 }
 loadDarkTheme();
 function updatePlusSettings(num) {
-    userSettingsElements.plusCount.each((index, el) => {
+    userSettingsElements.plusCount.forEach((el, index) => {
         if (index == num) el.prop('checked', true);
         else el.prop('checked', false);
     })
